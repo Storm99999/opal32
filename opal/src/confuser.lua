@@ -68,4 +68,9 @@ function opal32:encrypt_str(input : string) : __namecall
   return opal32:replace(result)
 end
 
+local startTime = os.clock()
+
 print(opal32:encrypt_str("Hello, World!"))
+local endTime = os.clock()
+local elapsedTime = endTime - startTime
+print("Elapsed time:", elapsedTime, "seconds")

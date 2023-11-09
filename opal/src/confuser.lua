@@ -1,6 +1,6 @@
-local function setindex(arr : table) return arr.__index = arr or {} end
+local function setindex(arr : table) arr.__index = arr or {} end
 local opal32 = { 
-  emojiTable: { {any} } = {
+  emojiTable = {
     "o32😊", "o32🌟", "o32🍎", "o32🐶", "o32🐱", "o32🌈", "o32🎉", "o32🚀", "o32🌍", "o32⚡", "o32🌺", "o32🎁", "o32🎈", "o32🌻", "o32🌸", "o32🍀", "o32🌹", "o32🐢", "o32🦋", "o32🦄",
     "o32🐬", "o32🐳", "o32🍕", "o32🍔", "o32🍟", "o32🍦", "o32🍩", "o32🍰", "o32🍫", "o32🍭", "o32🍪", "o32🥤", "o32🍸", "o32🍺", "o32🍷", "o32🍹", "o32🍾", "o32🥂", "o32🥃", "o32🍶",
     "o32🍵", "o32🍼", "o32🥛", "o32☕", "o32🍻", "o32🍨", "o32🍧", "o32🍢", "o32🍣", "o32🍡", "o32🍘", "o32🍥", "o32🥠", "o32🥮", "o32🍯", "o32🍝", "o32🍜", "o32🍲", "o32🍛", "o32🍚",
@@ -14,7 +14,7 @@ setindex(opal32)
 setindex(opal32.b64)
 setindex(opal32.emojiTable)
 
-function opal32.b64:convert(data : string)
+function opal32.b64:convert(data : string) : __namecall
   local b = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
   return ((data:gsub(
     ".",
@@ -40,7 +40,7 @@ function opal32.b64:convert(data : string)
   ) .. ({"", "==", "="})[#data % 3 + 1])
 end
 
-function opal32:replace(inputString : string)
+function opal32:replace(inputString : string) : __namecall
     local result = ""
     for i = 1, #inputString do
         local char = inputString:sub(i, i)
@@ -58,7 +58,7 @@ function opal32:encrypt_str(input : string) : __namecall
   local result;
   local lastString;
 
-  for _ = 0, 32 do
+  for _ = 0, 12 do
       local str_encrypt = opal32.b64:convert(lastString == nil and input or lastString)
       lastString = str_encrypt
   end
@@ -67,3 +67,5 @@ function opal32:encrypt_str(input : string) : __namecall
 
   return opal32:replace(result)
 end
+
+print(opal32:encrypt_str("Hello, World!"))
